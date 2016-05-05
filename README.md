@@ -3,10 +3,12 @@
 query caisis database based on metadata input, de-identify, and output tables to tsv
 ------------------------------------------------------------------------------------
 
-- de_id_caisis_query.py will pull data from caisis tables (through pyodbc) according to the tables and fields listed in the metadata.json file.
+- de_id_caisis_query.py will pull data from caisis tables (through pyodbc) according to the tables and fields listed in the *metadata.json* file.
 these fields will be deidentified in the following way:
     * all datetime objects will be shifted by a random number of days (within 22 days either way, consistent on a patient level)
-    * any field with the string 'Id' in it will be hashed by the field name and value
+    * any field with the string 'Id' in it (case sensitive) will be hashed on the field name and value
+   
+   this script also requires a tab delimited two column file where the first column is a unique patient identifier and the second column is its corresponding deidentified key (first row is a header) *<patient_id_key_file>*
 
 # *Note* 
 This means any data pulled that does not fit either of the two above criteria will **NOT** be altered in anyway
@@ -18,8 +20,7 @@ it's assumed that none of the fields specified in the metadata.json file contain
 - sweeper.py will look through all output files searching for potential PHI based on patterns and lists of names *(just an extra safety precaution/due diligence)*
 
 ### resources:
-*for general Caisis info: [link](www.caisis.org)
-
+*for general Caisis info: [www.caisis.org](http://www.caisis.org/)
 *for Caisis data model specifics: refer to resources/Caisis_60_ERD_PC.pdf
 
 ### general tips for data validation:
