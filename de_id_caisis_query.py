@@ -65,29 +65,35 @@ with open(output_date_offset_file, 'w') as date_map:
                 ## query by patient id unless a single join is necessary (dictated by metadata file)
                 if tables['patientIdInTable'] == "True":
                     query_string += ' WHERE ' + table_name + '.PatientId = '+ caisis_id
-                else:            
-                    query_string += ' INNER JOIN ' + tables['joinOn'][0] + ' ON ' +tables['joinOn'][0] + '.' + tables['joinOn'][1] + '=' + \
-                                    tables['table'] +'.' + tables['joinOn'][1] + ' WHERE ' + tables['joinOn'][0] + '.PatientId = '+ caisis_id     
+                else:
+                    joining_table = tables['joinOn'][0]
+                    joining_key = tables['joinOn'][1]
+                    query_string += ' INNER JOIN ' + joining_table + ' ON ' +joining_table + '.' + joining_key + '=' + \
+                                    tables['table'] +'.' + joining_key + ' WHERE ' + joining_table + '.PatientId = '+ caisis_id     
                 cur.execute(query_string)
                 rows = cur.fetchall()
                 
+                # loop through each row in query return
                 for r in rows:
                     de_id_r = ['NONE'] * len(r)                    
                     for index in range(len(r)):
                         field_name = query_list[index].split('.')[1]
                         field_value = r[index]
                         if 'Id' in field_name:
-                            ## hash on name and key number
+                            ## hash on name and key number of database keys
                             if field_value:
-                                hashed_key = hashlib.sha1(str(field_name) + str(field_value)).hexdigest()
+                                field_value = str(field_value)
+                                hashed_key = hashlib.sha1(field_name + field_value).hexdigest()
                                 de_id_r[index] = hashed_key
-
-                                if hashed_key in key_hash_d and key_hash_d[hashed_key] != (field_name,str(field_value)):
+                                ## check for hash collisions - if found, print out warning and write out to file
+                                ## but will NOT overwrite original hash in dictionary
+                                if hashed_key in key_hash_d and key_hash_d[hashed_key] != (field_name,field_value):
                                     print 'WARNING: Potential hash collision @ ' + hashed_key + ' with ' + \
-                                          field_name + ','  + str(field_value) + ' and ' + str(key_hash_d[hashed_key])
+                                          field_name + ','  + field_value + ' and ' + str(key_hash_d[hashed_key])
                                 else:
-                                    key_hash_d[hashed_key] = (field_name,str(field_value))
-                                key_hash_map.write(field_name + '\t' + str(field_value) + '\t' + hashed_key + '\n')
+                                    # map hashed keys to a tuple of field name and field value
+                                    key_hash_d[hashed_key] = (field_name,field_value)
+                                key_hash_map.write(field_name + '\t' + field_value + '\t' + hashed_key + '\n')
                             else:                                
                                 de_id_r[index] = 'None'                        
                         elif type(r[index]) == datetime.datetime:                            
@@ -95,13 +101,13 @@ with open(output_date_offset_file, 'w') as date_map:
                         else:
                             de_id_r[index] = field_value
                     ## store the deidentified data in the table_d dictionary
-                    record = [de_id] + de_id_r                    
-                    table_d[table_name].append(record)  
+                    de_identified_record = [de_id] + de_id_r                    
+                    table_d[table_name].append(de_identified_record)  
 
 
 ## output tables to file
 for each_table in metadata['tables']:
     with open(output_file_dir + each_table['table']+'.tsv','w') as out:
         out.write('PatientId\t' + '\t'.join(each_table['fields'])+'\n')
-        for rec in table_d[each_table['table']]:
-            out.write('\t'.join([str(r) for r in rec])+'\n')
+        for each_record in table_d[each_table['table']]:
+            out.write('\t'.join([str(r) for r in each_record])+'\n')
