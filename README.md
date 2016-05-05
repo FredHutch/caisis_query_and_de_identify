@@ -17,9 +17,10 @@ it's assumed that none of the fields specified in the metadata.json file contain
 
 - sweeper.py will look through all output files searching for potential PHI based on patterns and lists of names *(just an extra safety precaution/due diligence)*
 
-for general Caisis info: [link](www.caisis.org)
+### resources:
+*for general Caisis info: [link](www.caisis.org)
 
-for Caisis data model specifics: refer to resources/Caisis_60_ERD_PC.pdf
+*for Caisis data model specifics: refer to resources/Caisis_60_ERD_PC.pdf
 
 ### general tips for data validation:
 *double check hashed_keys_mapping to ensure there are no duplicate hashes
