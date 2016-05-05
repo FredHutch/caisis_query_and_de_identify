@@ -20,12 +20,12 @@ it's assumed that none of the fields specified in the metadata.json file contain
 - sweeper.py will look through all output files searching for potential PHI based on patterns and lists of names *(just an extra safety precaution/due diligence)*
 
 ### resources:
-*for general Caisis info: [www.caisis.org](http://www.caisis.org/)
+* for general Caisis info: [www.caisis.org](http://www.caisis.org/)
 
-*for Caisis data model specifics: refer to resources/Caisis_60_ERD_PC.pdf
+* for Caisis data model specifics: refer to resources/Caisis_60_ERD_PC.pdf
 
 ### general tips for data validation:
-*double check hashed_keys_mapping to ensure there are no duplicate hashes
-*double check at least one output table file against Caisis; ensure the correct number of rows for the query
-*double check accurate field values for at least one patient in at least one table
-*pick one patient from date_offsets_mapping file and check at least two tables containing dates to ensure that all dates are shifted by the same amount of days and that number is what's represented in the mapping file
+* double check hashed_keys_mapping to ensure there are no duplicate hashes
+* double check at least one output table file against Caisis; ensure the correct number of rows for the query
+* double check accurate field values for at least one patient in at least one table
+* pick one patient from date_offsets_mapping file and check at least two tables containing dates to ensure that all dates are shifted by the same amount of days and that number is what's represented in the mapping file
