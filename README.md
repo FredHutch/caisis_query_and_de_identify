@@ -8,7 +8,7 @@ these fields will be deidentified in the following way:
     * all datetime objects will be shifted by a random number of days (within 22 days either way, consistent on a patient level)
     * any field with the string 'Id' in it (case sensitive) will be hashed on the field name and value
    
-   this script also requires a tab delimited two column file where the first column is a unique patient identifier and the second column is its corresponding deidentified key (first row is a header) *<patient_id_key_file>*
+   this script also requires a tab delimited two column file where the first column is a unique patient identifier and the second column is its corresponding deidentified key (first row is a header) *patient_id_key_file*
 
 # *Note* 
 This means any data pulled that does not fit either of the two above criteria will **NOT** be altered in anyway
@@ -21,6 +21,7 @@ it's assumed that none of the fields specified in the metadata.json file contain
 
 ### resources:
 *for general Caisis info: [www.caisis.org](http://www.caisis.org/)
+
 *for Caisis data model specifics: refer to resources/Caisis_60_ERD_PC.pdf
 
 ### general tips for data validation:
