@@ -1,5 +1,5 @@
 {
-	"diseaseGroup":"lung",
+	"diseaseGroup":"*",
 	"tables":[
 		{"table":"Pathology",
 		"patientIdInTable":"True",
