@@ -36,7 +36,7 @@
 		{"table":"SocialHistories",
 		"patientIdInTable":"True",
 		"primaryKey":"PatientId",
-		"fields":["SocHxTobaccoType","SocHxTobaccoPacksPerDay","SocHxTobaccoPacksPerYear","SocHxTobaccoYears","SocHxTobaccoQuitYear","SocHxAlcohol","SocHxAlcoholYears","SocHxAlcoholQuitYear","SocHxOther"]
+		"fields":["SocHxTobaccoType","SocHxTobaccoPacksPerDay","SocHxTobaccoPacksPerYear","SocHxTobaccoYears","SocHxTobaccoQuitYear","SocHxAlcohol","SocHxAlcoholDrinksPerDay","SocHxAlcoholYears","SocHxAlcoholQuitYear","SocHxOther"]
 		},
 		{"table":"RadiationTherapy",
 		"patientIdInTable":"True",
