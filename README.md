@@ -15,7 +15,7 @@ This means any data pulled that does not fit either of the two above criteria wi
 It's up to the creator of the metadata file and the operator at run time to ensure that the data being pulled from Caisis is consistent with these assumptions
 it's assumed that none of the fields specified in the metadata.json file contain any other types of PHI *(i.e. no names or identifiers beyond the caisis primary and foreign keys)*
 
-- de_id_specimen_files.py will replace the patient identifier on each line (it's assumed that the first column contains the patient identifier and there is no other PHI within the file) with the previously created non identifying unique key for this cohort (within the id mapping file)
+- de_id_specimen_files.py will replace the patient identifier on each line (it's assumed that the first column contains the patient identifier and there is no other PHI within the file) with the previously created non identifying unique key for this cohort (within the id mapping file). It's currently designed to handle a __SINGLE__ join on a table in order to query by patientId
 
 - sweeper.py will look through all output files searching for potential PHI based on patterns and lists of names *(just an extra safety precaution/due diligence)*
 
