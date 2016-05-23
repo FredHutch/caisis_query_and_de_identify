@@ -72,7 +72,7 @@
 		},
 		{"table":"MedTxAdministration",
 		"patientIdInTable":"False",
-		"joinOn":["MedicalTherapy","MedicalTherapyId"]
+		"joinOn":["MedicalTherapy","MedicalTherapyId"],
 		"primaryKey":"MedicalTherapyId",
 		"fields":["MedTxAdministrationId","MedicalTherapyId","MedTxAdministrationPending","MedTxAdminStartDate","MedTxAdminAgent","MedTxAdminType","MedTxAdminStopDate","MedTxAdminDose","MedTxAdminTotalDose","MedTxAdminUnits","MedTxAdminRoute","MedTxAdminSchedule","MedTxAdminCycle"]
 		},
