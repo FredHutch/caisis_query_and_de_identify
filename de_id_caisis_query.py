@@ -108,7 +108,7 @@ with open(output_date_offset_file, 'w') as date_map:
 
 ## output tables to file
 for each_table in metadata['tables']:
-    with open(output_file_dir + each_table['table']+'.tsv','w') as out:
+    with open(output_file_dir + os.path.sep + each_table['table']+'.tsv','w') as out:
         out.write('PatientId\t' + '\t'.join(each_table['fields'])+'\n')
         for each_record in table_d[each_table['table']]:
             out.write('\t'.join([str(r) for r in each_record])+'\n')
