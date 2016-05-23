@@ -7,17 +7,18 @@
 
 import pyodbc, json, hashlib
 import datetime
+import os
 import random
 
 # general directory for output files
 output_file_dir = 'output_file_dir'
 input_file_dir = 'input_file_dir'
-disease_group = 'head_neck'
+disease_group = 'disease_group'
 
 # first line expected to be a header line, mapping caisis ids or MRNs to a deidentified id
 patient_id_mapping_file = input_file_dir + os.path.sep + 'patient_id_key_file'
 # metadata file dictates which tables and fields should be queried and where joins on foreign keys are necessary
-metadata = json.load(open(input_file_dir + os.path.sep + disease_group + os.path.sep + 'metadata.json', 'r'))
+metadata = json.load(open('resources' + os.path.sep + disease_group + os.path.sep + 'metadata.json', 'r'))
 
 ## output files for logging
 # store the hashes of foreign and primary keys for QA if necessary
