@@ -6,7 +6,7 @@
 import os, re
 
 # general directory for output files
-file_dir = 'output_file_directory'
+file_dir = 'H:\DataExtracts\OncoscapeLungHoughton-4229\Output'
 
 ## common names or potential phi (assume first line is a header/column description)
 first_names = set([x.strip() for x in open('resources' + os.path.sep + 'First_Names.txt', 'r').readlines()[1:]])

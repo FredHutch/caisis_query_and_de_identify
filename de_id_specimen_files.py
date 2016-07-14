@@ -6,8 +6,8 @@
 import os
 
 # directories for input and output files
-input_file_dir = 'input_file_directory'
-output_file_dir = 'output_file_directory'
+input_file_dir = 'H:\DataExtracts\OncoscapeLungHoughton-4229'
+output_file_dir = 'H:\DataExtracts\OncoscapeLungHoughton-4229\Output'
 
 # first line expected to be a header line,
 # mapping Caisis and/ids or MRNs to a predefined alternate id

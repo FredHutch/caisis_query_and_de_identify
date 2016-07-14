@@ -6,18 +6,18 @@
 '''
 
 import pyodbc, json, hashlib
-import datetime
+import datetime, os
 import random
 
 # general directory for output files
-output_file_dir = 'output_file_dir'
-input_file_dir = 'input_file_dir'
-disease_group = 'head_neck'
+input_file_dir = 'H:\DataExtracts\OncoscapeLungHoughton-4229'
+output_file_dir = 'H:\DataExtracts\OncoscapeLungHoughton-4229\Output'
+disease_group = 'lung'
 
 # first line expected to be a header line, mapping caisis ids or MRNs to a deidentified id
-patient_id_mapping_file = input_file_dir + os.path.sep + 'patient_id_key_file'
+patient_id_mapping_file = input_file_dir + os.path.sep + 'patient_id_key.txt'
 # metadata file dictates which tables and fields should be queried and where joins on foreign keys are necessary
-metadata = json.load(open(input_file_dir + os.path.sep + disease_group + os.path.sep + 'metadata.json', 'r'))
+metadata = json.load(open('resources' + os.path.sep + disease_group + os.path.sep + 'metadata.json', 'r'))
 
 ## output files for logging
 # store the hashes of foreign and primary keys for QA if necessary
@@ -29,8 +29,8 @@ output_date_offset_file = input_file_dir + os.path.sep + 'PHI_date_offsets_mappi
 key_hash_d = {}
 
 ## pyodbc connection string details
-DATABASE = 'CaisisDBName'
-SERVER_NAME = 'ServerName'
+DATABASE = 'CaisisProd'
+SERVER_NAME = 'CONGO-H\H'
 connStr = ('DRIVER={SQL Server};SERVER=' + SERVER_NAME +';DATABASE=' + DATABASE +';Trusted_Connection=yes')   
 conn = pyodbc.connect(connStr)
 cur = conn.cursor()
@@ -107,7 +107,7 @@ with open(output_date_offset_file, 'w') as date_map:
 
 ## output tables to file
 for each_table in metadata['tables']:
-    with open(output_file_dir + each_table['table']+'.tsv','w') as out:
+    with open(output_file_dir + os.path.sep + each_table['table']+'.tsv','w') as out:
         out.write('PatientId\t' + '\t'.join(each_table['fields'])+'\n')
         for each_record in table_d[each_table['table']]:
             out.write('\t'.join([str(r) for r in each_record])+'\n')

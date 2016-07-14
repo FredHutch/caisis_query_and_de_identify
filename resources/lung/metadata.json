@@ -72,8 +72,9 @@
 		},
 		{"table":"MedTxAdministration",
 		"patientIdInTable":"False",
+		"joinOn":["MedicalTherapy","MedicalTherapyId"],
 		"primaryKey":"MedicalTherapyId",
-		"fields":["MedTxAdministrationId","MedicalTherapyId","MedTxAdministrationPending","MedTxAdminStartDate","MedTxAdminAgent","MedTxAdminType","MedTxAdminStopDate","MedTxAdminDose","MedTxAdminTotalDose","MedTxAdminUnits","MedTxAdminRoute","MedTxAdminSchedule","MedTxAdminCycle"]
+		"fields":["MedTxAdministrationId","MedicalTherapyId","MedTxAdminPending","MedTxAdminStartDate","MedTxAdminAgent","MedTxAdminType","MedTxAdminStopDate","MedTxAdminDose","MedTxAdminTotalDose","MedTxAdminUnits","MedTxAdminRoute","MedTxAdminSchedule","MedTxAdminCycle"]
 		},
 		{"table":"Encounters",
 		"patientIdInTable":"True",
