@@ -10,9 +10,12 @@ import datetime, os
 import random
 
 # general directory for output files
-input_file_dir = 'H:\DataExtracts\OncoscapeLungHoughton-4229'
-output_file_dir = 'H:\DataExtracts\OncoscapeLungHoughton-4229\Output'
-disease_group = 'lung'
+output_file_dir = 'output_file_dir'
+input_file_dir = 'input_file_dir'
+disease_group = 'disease_group'
+
+# binary flag for de-identification step
+de_id_flag = False
 
 # first line expected to be a header line, mapping caisis ids or MRNs to a deidentified id
 patient_id_mapping_file = input_file_dir + os.path.sep + 'patient_id_key.txt'
@@ -50,11 +53,11 @@ with open(output_date_offset_file, 'w') as date_map:
     date_map.write('CaisisPatientId\tDayShift\n')
 
     with open(output_de_id_key_mapping_file, 'w') as key_hash_map:
-        key_hash_map.write('CaisisKeyName\tCaisisKeyValue\tDeIdKey\n')
+        if de_id_flag: key_hash_map.write('CaisisKeyName\tCaisisKeyValue\tDeIdKey\n')
 
         for caisis_id, de_id in caisis_pt_id_to_de_id.items():
             day_change = random.choice(day_change_range)
-            date_map.write(caisis_id + '\t' + str(day_change) + '\n')
+            if de_id_flag: date_map.write(caisis_id + '\t' + str(day_change) + '\n')
             
             for tables in metadata['tables']:                
                 table_name =  tables['table'] 
@@ -79,25 +82,28 @@ with open(output_date_offset_file, 'w') as date_map:
                     for index in range(len(r)):
                         field_name = query_list[index].split('.')[1]
                         field_value = r[index]
-                        if 'Id' in field_name:
-                            ## hash on name and key number of database keys
-                            if field_value:
-                                field_value = str(field_value)
-                                hashed_key = hashlib.sha1(field_name + field_value).hexdigest()
-                                de_id_r[index] = hashed_key
-                                ## check for hash collisions - if found, print out warning and write out to file
-                                ## but will NOT overwrite original hash in dictionary
-                                if hashed_key in key_hash_d and key_hash_d[hashed_key] != (field_name,field_value):
-                                    print 'WARNING: Potential hash collision @ ' + hashed_key + ' with ' + \
-                                          field_name + ','  + field_value + ' and ' + str(key_hash_d[hashed_key])
-                                else:
-                                    # map hashed keys to a tuple of field name and field value
-                                    key_hash_d[hashed_key] = (field_name,field_value)
-                                key_hash_map.write(field_name + '\t' + field_value + '\t' + hashed_key + '\n')
-                            else:                                
-                                de_id_r[index] = 'None'                        
-                        elif type(r[index]) == datetime.datetime:                            
-                            de_id_r[index] = field_value + datetime.timedelta(days=day_change)                            
+                        if de_id_flag: 
+                            if 'Id' in field_name:
+                                ## hash on name and key number of database keys
+                                if field_value:
+                                    field_value = str(field_value)
+                                    hashed_key = hashlib.sha1(field_name + field_value).hexdigest()
+                                    de_id_r[index] = hashed_key
+                                    ## check for hash collisions - if found, print out warning and write out to file
+                                    ## but will NOT overwrite original hash in dictionary
+                                    if hashed_key in key_hash_d and key_hash_d[hashed_key] != (field_name,field_value):
+                                        print 'WARNING: Potential hash collision @ ' + hashed_key + ' with ' + \
+                                              field_name + ','  + field_value + ' and ' + str(key_hash_d[hashed_key])
+                                    else:
+                                        # map hashed keys to a tuple of field name and field value
+                                        key_hash_d[hashed_key] = (field_name,field_value)
+                                    key_hash_map.write(field_name + '\t' + field_value + '\t' + hashed_key + '\n')
+                                else:                                
+                                    de_id_r[index] = 'None'                        
+                            elif type(r[index]) == datetime.datetime:                            
+                                de_id_r[index] = field_value + datetime.timedelta(days=day_change) 
+                            else:
+                                de_id_r[index] = field_value
                         else:
                             de_id_r[index] = field_value
                     ## store the deidentified data in the table_d dictionary

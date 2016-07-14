@@ -26,6 +26,7 @@ it's assumed that none of the fields specified in the metadata.json file contain
 
 ### general tips for data validation:
 * double check hashed_keys_mapping to ensure there are no duplicate hashes
-* double check at least one output table file against Caisis; ensure the correct number of rows for the query
-* double check accurate field values for at least one patient in at least one table
-* pick one patient from date_offsets_mapping file and check at least two tables containing dates to ensure that all dates are shifted by the same amount of days and that number is what's represented in the mapping file
+   * once duplicate CaisisKeyName,CaisisKeyValue pairs from the PHI_hashed_keys_mapping output file and there should be no duplicated DeIdKeys
+* double check at least a couple output table file against Caisis; ensure the correct number of rows for the query
+* double check accurate field values for at least one patient in at least a couple tables
+* pick one patient from date_offsets_mapping file and check at least a couple tables containing dates to ensure that all dates are shifted by the same number of days and that number is what is represented in the mapping file (and that number is not zero)
