@@ -12,10 +12,13 @@ import random
 # general directory for output files
 output_file_dir = 'output_file_dir'
 input_file_dir = 'input_file_dir'
-disease_group = 'disease_group'
+disease_group = 'sarcoma'
 
 # binary flag for de-identification step
 de_id_flag = False
+# flag for phi queries to include the mrn and first and last name in every table
+pt_info = True
+pt_d = {}
 
 # first line expected to be a header line, mapping caisis ids or MRNs to a deidentified id
 patient_id_mapping_file = input_file_dir + os.path.sep + 'patient_id_key.txt'
@@ -32,13 +35,13 @@ output_date_offset_file = input_file_dir + os.path.sep + 'PHI_date_offsets_mappi
 key_hash_d = {}
 
 ## pyodbc connection string details
-DATABASE = 'CaisisProd'
-SERVER_NAME = 'CONGO-H\H'
+DATABASE = 'db_name'
+SERVER_NAME = 'server_name'
 connStr = ('DRIVER={SQL Server};SERVER=' + SERVER_NAME +';DATABASE=' + DATABASE +';Trusted_Connection=yes')   
 conn = pyodbc.connect(connStr)
 cur = conn.cursor()
 
-caisis_pt_id_to_de_id = dict((x.split('\t')[0], x.split('\t')[1].strip()) for x in open(patient_id_mapping_file,'r').readlines()[1:])
+caisis_pt_id_to_de_id = dict((x.split('\t')[1].strip(), x.split('\t')[0].strip()) for x in open(patient_id_mapping_file,'r').readlines()[1:])
 print 'querying ' + DATABASE + ' for ' + metadata['diseaseGroup']
 table_d = {}
 for tab in [x['table'] for x in metadata['tables']]:
@@ -57,13 +60,20 @@ with open(output_date_offset_file, 'w') as date_map:
 
         for caisis_id, de_id in caisis_pt_id_to_de_id.items():
             day_change = random.choice(day_change_range)
-            if de_id_flag: date_map.write(caisis_id + '\t' + str(day_change) + '\n')
-            
+            if de_id_flag:
+                date_map.write(caisis_id + '\t' + str(day_change) + '\n')
+            if pt_info:
+                query_string = 'SELECT PtMRN, PtFirstName, PtLastName FROM Patients where patientId = ' + str(caisis_id)
+                cur.execute(query_string)
+                rows = cur.fetchone()
+                pt_d[de_id] = [rows[1],rows[2]]                
+			
             for tables in metadata['tables']:                
                 table_name =  tables['table'] 
                 fields = tables['fields']
                 query_list = [table_name + '.' + f for f in tables['fields']]
                 query_string = 'SELECT ' + ','.join(query_list) + ' FROM '+ table_name
+				
 
                 ## query by patient id unless a single join is necessary (dictated by metadata file)
                 if tables['patientIdInTable'] == "True":
@@ -114,6 +124,11 @@ with open(output_date_offset_file, 'w') as date_map:
 ## output tables to file
 for each_table in metadata['tables']:
     with open(output_file_dir + os.path.sep + each_table['table']+'.tsv','w') as out:
+        if pt_info:
+            out.write('PtFirstName\tPtLastName\t')
         out.write('PatientId\t' + '\t'.join(each_table['fields'])+'\n')
         for each_record in table_d[each_table['table']]:
+            if pt_info:
+                print each_record                
+                out.write('\t'.join([str(a) for a in pt_d[each_record[0]]])+ '\t')
             out.write('\t'.join([str(r) for r in each_record])+'\n')
