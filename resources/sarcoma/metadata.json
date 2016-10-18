@@ -68,7 +68,7 @@
 		"patientIdInTable":"False",
 		"joinOn":["Pathology","PathologyId"],
 		"primaryKey":"PathFindingId",
-		"fields":["PathologyId","PathologyFindingId","PathFindSide","PathFindSite","PathFindSubsite","PathFindHistology","PathFindHeight","PathFindWidth","PathFindLength","PathFindGrade","PathFindResult","PathFinding"]
+		"fields":["PathologyId","PathologyFindingId","PathFindIndex","PathFindSide","PathFindSite","PathFindSubsite","PathFindHistology","PathFindHeight","PathFindWidth","PathFindLength","PathFindGrade","PathFindResult","PathFinding"]
 		},
 		{"table":"PathologyStageGrade",
 		"patientIdInTable":"False",
