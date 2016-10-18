@@ -37,6 +37,12 @@
 		"primaryKey":"FamilyMemberId",
 		"fields":["PatientId","FamilyMemberId","FamMemNum","FamMemSide","FamMemRelation","FamMemDeathAge"]
 		},
+		{"table":"FamilyMemberDiagnoses",
+		"patientIdInTable":"False",
+		 "joinOn":["FamilyMemeber","FamilyMemberId"],
+		"primaryKey":"FamilyMemberId",
+		"fields":["FamilyMemberId","FamilyDiagnosisId","FamMemDiagnosis","FamMemDiagnosisAge"]
+		},
 		{"table":"MedicalTherapy",
 		"patientIdInTable":"True",
 		"primaryKey":"MedicalTherapyId",
@@ -56,7 +62,7 @@
 		{"table":"Pathology",
 		"patientIdInTable":"True",
 		"primaryKey":"PathologyId",
-		"fields":["OperatingRoomDetailId","PathologyId","ProcedureId","PathDate","PathSpecimenType","PathSite","PathSubsite","PathSide","PathHistology","PathHistology2","PathQuality"]
+		"fields":["OperatingRoomDetailId","PathologyId","ProcedureId","PathDate","PathSpecimenType","PathSite","PathSubsite","PathSide","PathHistology","PathHistology2","PathQuality","PathResult"]
 		},
 		{"table":"PathologyFinding",
 		"patientIdInTable":"False",
