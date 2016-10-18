@@ -20,7 +20,7 @@
 		"patientIdInTable":"False",
 		"joinOn":["Diagnostics","DiagnosticId"],
 		"primaryKey":"DxImageFindingId",
-		"fields":["DiagnosticId","DxImageFindingId","ImgFindSite","ImgFindSubsite","ImgFindSide","ImgFindExtension","ImgFindStatus","ImgFindResult"]
+		"fields":["DiagnosticId","DxImageFindingId","ImgFindSite","ImgFindSubsite","ImgFindSide","ImgFindExtension","ImgFindStatus","ImgFindResult","ImgFindHeight","ImgFindWidth","ImgFindLength"]
 		},
 		{"table":"Diagnostics",
 		"patientIdInTable":"True",
