@@ -80,7 +80,7 @@
 		"patientIdInTable":"False",
 		"joinOn":["Pathology","PathologyId"],
 		"primaryKey":"PathTestId",
-		"fields":["PathologyId","PathTestId","PathDate","PathTest","PathResult","PathQuality","PathNotes"]
+		"fields":["PathologyId","PathTestId","PathDate","PathTest","PathResult","PathQuality","PathNotes","PathMethod"]
 		},
 		{"table":"Patients",
 		"patientIdInTable":"True",
