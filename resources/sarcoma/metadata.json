@@ -100,7 +100,7 @@
 		{"table":"Status",
 		"patientIdInTable":"True",
 		"primaryKey":"StatusId",
-		"fields":["StatusId","StatusDate","StatusDisease","Status","StatusQuality"]
+		"fields":["StatusId","StatusDate","StatusDisease","Status","StatusQuality","StatusNotes","StatusSite"]
 		},
 		{"table":"SocialHistories",
 		"patientIdInTable":"True",
