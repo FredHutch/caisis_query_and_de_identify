@@ -10,8 +10,8 @@ import datetime, os
 import random
 
 # general directory for output files
-output_file_dir = 'output_file_dir'
-input_file_dir = 'input_file_dir'
+output_file_dir = 'H:/DataExtracts/Sarcoma_N16/n15'
+input_file_dir = 'H:/DataExtracts/Sarcoma_N16'
 disease_group = 'sarcoma'
 
 # binary flag for de-identification step
@@ -35,8 +35,8 @@ output_date_offset_file = input_file_dir + os.path.sep + 'PHI_date_offsets_mappi
 key_hash_d = {}
 
 ## pyodbc connection string details
-DATABASE = 'db_name'
-SERVER_NAME = 'server_name'
+DATABASE = 'CaisisProd'
+SERVER_NAME = 'CONGO-H\H'
 connStr = ('DRIVER={SQL Server};SERVER=' + SERVER_NAME +';DATABASE=' + DATABASE +';Trusted_Connection=yes')   
 conn = pyodbc.connect(connStr)
 cur = conn.cursor()

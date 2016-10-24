@@ -37,11 +37,11 @@
 		"primaryKey":"FamilyMemberId",
 		"fields":["PatientId","FamilyMemberId","FamMemNum","FamMemSide","FamMemRelation","FamMemDeathAge"]
 		},
-		{"table":"FamilyMemberDiagnoses",
+		{"table":"FamilyMemberDiagnosis",
 		"patientIdInTable":"False",
-		 "joinOn":["FamilyMemeber","FamilyMemberId"],
+		 "joinOn":["FamilyMembers","FamilyMemberId"],
 		"primaryKey":"FamilyMemberId",
-		"fields":["FamilyMemberId","FamilyDiagnosisId","FamMemDiagnosis","FamMemDiagnosisAge"]
+		"fields":["FamilyMemberId","FamilyMemberDiagnosisId","FamMemDiagnosis","FamMemDiagnosisAge"]
 		},
 		{"table":"MedicalTherapy",
 		"patientIdInTable":"True",
