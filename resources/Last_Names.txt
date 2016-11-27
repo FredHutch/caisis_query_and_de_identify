@@ -5504,7 +5504,6 @@ Sutt
 Svay
 Svec
 Svob
-Swab
 Swam
 Swan
 Swed
@@ -6011,7 +6010,6 @@ Whit
 Wice
 Wick
 Wida
-Wide
 Wied
 Wien
 Wier
@@ -10838,7 +10836,6 @@ Glomb
 Gloor
 Glore
 Glory
-Gloss
 Gloyd
 Gluck
 Glunt
@@ -10999,7 +10996,6 @@ Grabo
 Grace
 Graci
 Gracy
-Grade
 Grado
 Grady
 Graef
@@ -19537,7 +19533,6 @@ Wicka
 Wicke
 Wicks
 Widby
-Widen
 Wider
 Wiebe
 Wiece
@@ -22239,7 +22234,6 @@ Brazzi
 Breach
 Bready
 Breard
-Breath
 Breaud
 Breaux
 Brebes
