@@ -16,13 +16,13 @@
 		"patientIdInTable":"False",
 		"joinOn":["Procedures","ProcedureId"],
 		"primaryKey":"ProcedureId",
-		"fields":["ProcedureId","ProcIntent","ProcComplication","ProcTumorObstruction","ProcDiseaseExtent","ProcPathType","ProcTuomorAnalVerge","ProcSynchronousResection","ProcSynchResectionLiver","ProcSynchResectionLung","ProcSynchResectionRetroperitonealNodal","ProcSynchResectionOvary","ProcSynchResectionPeritoneal","ProcSynchResectionOther","ProcLA_MesorectalExcisionExtent","ProcTumorLocation"]
+		"fields":["ProcedureId","ProcIntent","ProcComplication","ProcTumorObstruction","ProcDiseaseExtent","ProcPathType","ProcTumorAnalVerge","ProcSynchronousResection","ProcSynchResectionLiver","ProcSynchResectionLung","ProcSynchResectionRetroperitonealNodal","ProcSynchResectionOvary","ProcSynchResectionPeritoneal","ProcSynchResectionOther","ProcLA_MesorectalExcisionExtent","ProcTumorLocation"]
 		},
 		{"table":"ColorectalPath",
 		"patientIdInTable":"False",
 		"joinOn":["Pathology","PathologyId"],
 		"primaryKey":"PathologyId",
-		"fields":["PathologyId","PathICD9_Code","PathICD10_Code","PathDiseaseExtent"]
+		"fields":["PathologyId","PathICD9_Code","PathICD0_Code","PathDiseaseExtent"]
 		},
 		{"table":"NodePathFinding",
 		"patientIdInTable":"False",
